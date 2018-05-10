@@ -113,7 +113,7 @@ fi
 
 
 
-# create directories
+# create directories -> pages -> content
 
 #https://unix.stackexchange.com/questions/48750/creating-numerous-directories-using-mkdir/48752
 n=0
@@ -126,10 +126,77 @@ while [ "$n" -le "$max" ]; do
 	     	echo "Error! Directory not created"
 		exit 1
 	fi
+
+
+
+
+	# create pages
+	l=0
+	max_2=0
+	let max_2=p-1
+
+
+
+
+filename=
+
+
+while [ "$l" -le "$max_2" ]; do
+
+
+	filename="$root_directory/site$n/page"$n"_$RANDOM.html"
+	#echo "$filename"
+
+
+	while [ -e "$filename" ]; do
+
+
+		echo "$l"
+	
+
+		filename="$root_directory/site$n/page"$n"_$RANDOM.html"
+		echo "$filename"
+
+	done
+
+
+	touch $filename
+	# add data to the pages
+	#https://www.linuxquestions.org/questions/programming-9/create-a-text-file-using-bash-301528/
+	echo data >> $filename
+
+
+	l=`expr "$l" + 1`
+
+
+done
+	
+
+
+
+
+	# fill pages
+
+
+
+
+
+
+
+
+
   	n=`expr "$n" + 1`
 done
 
-# create pages
+
+
+
+
+
+
+
+
+
 
 
 
