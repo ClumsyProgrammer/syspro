@@ -90,8 +90,9 @@ fi
 # check number of lines
 
 #https://stackoverflow.com/questions/12022319/bash-echo-number-of-lines-of-file-given-in-a-bash-variable-without-the-file-name
+lines=0
 lines=$(wc -l < "$text_file")
-if [ "$lines" < "10000" ];
+if [ "$lines" -lt "10000" ];
 then
     echo "text_file has fewer than 10000 lines ("$lines")"
     exit 1
