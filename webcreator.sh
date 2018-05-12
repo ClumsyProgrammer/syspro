@@ -12,8 +12,9 @@ f=
 q=
 current_site=
 current_page=
+array_all=()
 links_array=()
-
+pages_without_link=()
 
 # functions
 
@@ -61,49 +62,6 @@ echo "m = $m"
 }
 
 
-function find_to_array_all_pages
-{
-
-# https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
-# https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
-
-
-array=()
-while IFS=  read -r -d $'\0'; do
-    array+=("$REPLY")
-done < <(find ./sites -name "*.html" -print0)
-
-
-for i in ${array[@]}
-do
-
-#echo $i
-
-
-
-
-# https://www.tldp.org/LDP/abs/html/string-manipulation.html
-
-# SOS! NO p or _ in the $root_directory
-#echo `expr index "$i" p`
-#echo `expr index "$i" _`
-
-ind_1=`expr index "$i" p`
-ind_2=`expr index "$i" _`
-
-let ind_2=ind_2-ind_1
-let ind_1=ind_1-1
-
-    current_page=${i:$ind_1}
-    current_site=${i:$ind_1:$ind_2}
-
-    echo "current site:  $current_site "
-    echo "current page:  $current_page "
-
-done
-
-}
-
 
 function links_subset
 {
@@ -112,7 +70,7 @@ function links_subset
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-echo "original external links"
+#echo "original external links"
 
 array_ext=()
 while IFS=  read -r -d $'\0'; do
@@ -120,21 +78,21 @@ while IFS=  read -r -d $'\0'; do
 done < <(find ./sites -name "*.html" ! -name "*$current_site*" -print0)
 
 
-for i in ${array_ext[@]}
-do
-    echo $i
-done
+#for i in ${array_ext[@]}
+#do
+#    echo $i
+#done
 
 # https://techfertilizer.wordpress.com/2012/06/15/sorting-arrays-in-bash-shell-scripting/
 
-echo "random subset"
+#echo "random subset"
 array_ext_2=($(for each in ${array_ext[@]}; do echo $each; done | sort -R | tail -$q ))
 
 
-for i in ${array_ext_2[@]}
-do
-    echo $i
-done
+#for i in ${array_ext_2[@]}
+#do
+#    echo $i
+#done
 
 
 
@@ -142,7 +100,7 @@ done
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-echo "original internal links"
+#echo "original internal links"
 
 array_int=()
 while IFS=  read -r -d $'\0'; do
@@ -150,24 +108,24 @@ while IFS=  read -r -d $'\0'; do
 done < <(find ./sites -name "*$current_site*.html" ! -name "*$current_page*" -print0)
 
 
-for i in ${array_int[@]}
-do
-    echo $i
-done
+#for i in ${array_int[@]}
+#do
+#    echo $i
+#done
 
 
 # https://techfertilizer.wordpress.com/2012/06/15/sorting-arrays-in-bash-shell-scripting/
 
-echo "random subset"
+#echo "random subset"
 array_int_2=($(for each in ${array_int[@]}; do echo $each; done | sort -R | tail -$f ))
 
 
-for i in ${array_int_2[@]}
-do
-    echo $i
-done
+#for i in ${array_int_2[@]}
+#do
+#    echo $i
+#done
 
-
+# https://stackoverflow.com/questions/31143874/how-to-concatenate-arrays-in-bash
 echo "final list of links for this page"
 
 links_array_draft=( "${array_int_2[@]}" "${array_ext_2[@]}" )
@@ -178,6 +136,31 @@ for i in ${links_array[@]}
 do
     echo $i
 done
+
+
+echo "pages_without_link"
+for i in ${pages_without_link[@]}
+do
+    echo $i
+done
+echo "---------------------------------------------"
+
+
+pages_without_link_new=(`echo ${pages_without_link[@]} ${links_array[@]} | tr ' ' '\n' | sort | uniq -D | uniq `)
+
+
+
+
+echo "pages without link new"
+for i in ${pages_without_link_new[@]}
+do
+    echo $i
+done
+echo "---------------------------------------------"
+
+
+
+pages_without_link=("${pages_without_link_new[@]}")
 
 
 }
@@ -366,18 +349,25 @@ echo "f = $f"
 echo "q = $q"
 
 
-# for each page
+
 
 
 # https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-array_all=()
+
 while IFS=  read -r -d $'\0'; do
     array_all+=("$REPLY")
 done < <(find ./sites -name "*.html" -print0)
 
+#https://stackoverflow.com/questions/19417015/how-to-copy-an-array-in-bash
+pages_without_link=("${array_all[@]}")
+
+
+
+
+# for each page
 
 for i in ${array_all[@]}
 do
