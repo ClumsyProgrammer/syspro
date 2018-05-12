@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# variables
 root_directory=
 text_file=
 w=
@@ -7,6 +8,14 @@ p=
 lines=
 k=
 m=
+f=
+q=
+current_site=
+current_page=
+
+
+
+# functions
 
 function usage
 {
@@ -16,6 +25,7 @@ function usage
 
 function random_k
 {
+
 # http://tldp.org/LDP/abs/html/randomvar.html
 
 k=0
@@ -30,11 +40,13 @@ rand_num=$RANDOM
 let k="rand_num %= $range"
 
 echo "k = $k"
+
 }
 
 
 function random_m
 {
+
 m=0
 rand_num_2=0
 
@@ -45,6 +57,49 @@ let m="rand_num %= 1000"
 let m="m + 1000"
 
 echo "m = $m"
+
+}
+
+
+function find_to_array_external_links
+{
+
+# https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
+# https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
+
+
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find ./sites -name "*.html" ! -name "*$current_site*" -print0)
+
+
+for i in ${array[@]}
+do
+    echo $i
+done
+
+}
+
+
+function find_to_array_internal_links
+{
+
+# https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
+# https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
+
+
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find ./sites -name "*$current_site*.html" ! -name "*$current_page*" -print0)
+
+
+for i in ${array[@]}
+do
+    echo $i
+done
+
 }
 
 
@@ -213,18 +268,20 @@ random_k
 # random m
 random_m
 
+
+
+current_site="page1"
+current_page="page1_1234"
+
 # find to array
+echo "internal links"
 
-array=()
-while IFS=  read -r -d $'\0'; do
-    array+=("$REPLY")
-done < <(find ./sites -name '*.html' ! -name 'page0*' -print0)
+find_to_array_internal_links
 
+echo "external links"
 
-for i in ${array[@]}
-do
-    echo $i
-done
+find_to_array_external_links
+
 
 
 # place content in every page
