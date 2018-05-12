@@ -1,12 +1,6 @@
 #!/bin/bash
 
-root_directory=
-text_file=
-w=
-p=
-lines=
-k=
-m=
+
 
 function usage
 {
@@ -14,38 +8,11 @@ function usage
 }
 
 
-function random_k
-{
-# http://tldp.org/LDP/abs/html/randomvar.html
-
-k=0
-rand_num=0
-range=0
-
-range=`expr "$lines" - 2000`
-rand_num=$RANDOM
-#echo "random number =  $rand_num"
-#echo "lines = $lines"
-#echo "range = $range"
-let k="rand_num %= $range"
-
-echo "k = $k"
-}
-
-
-function random_m
-{
-m=0
-rand_num_2=0
-
-rand_num_2=$RANDOM
-#echo "random number =  $rand_num"
-let m="rand_num %= 1000"
-#echo "$m"
-let m="m + 1000"
-
-echo "m = $m"
-}
+root_directory=
+text_file=
+w=
+p=
+lines=
 
 
 # proccess arguments
@@ -209,12 +176,32 @@ done
 
 
 # random k
-random_k
-# random m
-random_m
+# http://tldp.org/LDP/abs/html/randomvar.html
+
+k=0
+rand_num=0
+range=0
+
+range=`expr "$lines" - 2000`
+rand_num=$RANDOM
+#echo "random number =  $rand_num"
+#echo "lines = $lines"
+#echo "range = $range"
+let k="rand_num %= $range"
+
+echo "k = $k"
 
 
+m=0
+rand_num_2=0
 
+rand_num_2=$RANDOM
+#echo "random number =  $rand_num"
+let m="rand_num %= 1000"
+#echo "$m"
+let m="m + 1000"
+
+echo "m = $m"
 
 # place content in every page
 
