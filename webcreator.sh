@@ -213,7 +213,18 @@ random_k
 # random m
 random_m
 
+# find to array
 
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find ./sites -name '*.html' ! -name 'page0*' -print0)
+
+
+for i in ${array[@]}
+do
+    echo $i
+done
 
 
 # place content in every page
