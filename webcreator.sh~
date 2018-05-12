@@ -77,12 +77,16 @@ done < <(find ./sites -name "*.html" -print0)
 for i in ${array[@]}
 do
 
-    echo $i
+#echo $i
+
+
+
+
 # https://www.tldp.org/LDP/abs/html/string-manipulation.html
 
 # SOS! NO p in the $root_directory
-echo `expr index "$i" p`
-echo `expr index "$i" _`
+#echo `expr index "$i" p`
+#echo `expr index "$i" _`
 
 ind_1=`expr index "$i" p`
 ind_2=`expr index "$i" _`
@@ -242,6 +246,9 @@ fi
 
 
 
+
+
+
 # create sites & pages
 
 #https://unix.stackexchange.com/questions/48750/creating-numerous-directories-using-mkdir/48752
@@ -323,19 +330,33 @@ random_m
 
 
 
+# f and q parameters
+
+
+f=`expr "$p" / 2`
+f=`expr "$f" + 1`
+
+q=`expr "$w" / 2`
+q=`expr "$q" + 1`
+
+
+echo $f
+echo $q
+
+
 # find to array
 
 echo "all pages"
 
-find_to_array_all_pages
+#find_to_array_all_pages
 
 echo "internal links"
 
-find_to_array_internal_links
+#find_to_array_internal_links
 
 echo "external links"
 
-find_to_array_external_links
+#find_to_array_external_links
 
 
 

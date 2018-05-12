@@ -246,6 +246,9 @@ fi
 
 
 
+
+
+
 # create sites & pages
 
 #https://unix.stackexchange.com/questions/48750/creating-numerous-directories-using-mkdir/48752
@@ -327,19 +330,33 @@ random_m
 
 
 
+# f and q parameters
+
+
+f=`expr "$p" / 2`
+f=`expr "$f" + 1`
+
+q=`expr "$w" / 2`
+q=`expr "$q" + 1`
+
+
+echo $f
+echo $q
+
+
 # find to array
 
 echo "all pages"
 
-find_to_array_all_pages
+#find_to_array_all_pages
 
 echo "internal links"
 
-find_to_array_internal_links
+#find_to_array_internal_links
 
 echo "external links"
 
-find_to_array_external_links
+#find_to_array_external_links
 
 
 
