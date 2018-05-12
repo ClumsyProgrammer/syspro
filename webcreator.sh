@@ -112,6 +112,8 @@ function find_to_array_external_links
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
+echo "original"
+
 array_ext=()
 while IFS=  read -r -d $'\0'; do
     array_ext+=("$REPLY")
@@ -119,6 +121,17 @@ done < <(find ./sites -name "*.html" ! -name "*$current_site*" -print0)
 
 
 for i in ${array_ext[@]}
+do
+    echo $i
+done
+
+# https://techfertilizer.wordpress.com/2012/06/15/sorting-arrays-in-bash-shell-scripting/
+
+echo "random subset"
+array_ext_2=($(for each in ${array_ext[@]}; do echo $each; done | sort -R | tail -$q ))
+
+
+for i in ${array_ext_2[@]}
 do
     echo $i
 done
