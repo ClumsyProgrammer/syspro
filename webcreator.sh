@@ -12,7 +12,7 @@ f=
 q=
 current_site=
 current_page=
-
+links_array=()
 
 
 # functions
@@ -105,14 +105,14 @@ done
 }
 
 
-function find_to_array_external_links
+function links_subset
 {
 
 # https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-echo "original"
+echo "original external links"
 
 array_ext=()
 while IFS=  read -r -d $'\0'; do
@@ -136,17 +136,13 @@ do
     echo $i
 done
 
-}
 
-
-function find_to_array_internal_links
-{
 
 # https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-echo "original"
+echo "original internal links"
 
 array_int=()
 while IFS=  read -r -d $'\0'; do
@@ -171,6 +167,17 @@ do
     echo $i
 done
 
+
+echo "final list of links for this page"
+
+links_array_draft=( "${array_int_2[@]}" "${array_ext_2[@]}" )
+links_array=($(for each in ${links_array_draft[@]}; do echo $each; done | sort -R ))
+
+
+for i in ${links_array[@]}
+do
+    echo $i
+done
 
 
 }
@@ -403,13 +410,11 @@ do
 	random_m
 
 
-	echo "internal links"
+	echo "internal & external links subset"
 
-	find_to_array_internal_links
+	links_subset
 
-	echo "external links"
-
-	find_to_array_external_links
+	
 
 
 done
