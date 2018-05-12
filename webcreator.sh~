@@ -125,7 +125,7 @@ do
     echo $i
 done
 
-
+# https://techfertilizer.wordpress.com/2012/06/15/sorting-arrays-in-bash-shell-scripting/
 
 echo "random subset"
 array_ext_2=($(for each in ${array_ext[@]}; do echo $each; done | sort -R | tail -$q ))
@@ -146,6 +146,8 @@ function find_to_array_internal_links
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
+echo "original"
+
 array_int=()
 while IFS=  read -r -d $'\0'; do
     array_int+=("$REPLY")
@@ -156,6 +158,20 @@ for i in ${array_int[@]}
 do
     echo $i
 done
+
+
+# https://techfertilizer.wordpress.com/2012/06/15/sorting-arrays-in-bash-shell-scripting/
+
+echo "random subset"
+array_int_2=($(for each in ${array_int[@]}; do echo $each; done | sort -R | tail -$f ))
+
+
+for i in ${array_int_2[@]}
+do
+    echo $i
+done
+
+
 
 }
 
