@@ -77,10 +77,25 @@ done < <(find ./sites -name "*.html" -print0)
 for i in ${array[@]}
 do
 
-    echo $i
+#echo $i
 
-    current_page=${i:14}
-    current_site=${i:14:5}
+
+
+
+# https://www.tldp.org/LDP/abs/html/string-manipulation.html
+
+# SOS! NO p in the $root_directory
+#echo `expr index "$i" p`
+#echo `expr index "$i" _`
+
+ind_1=`expr index "$i" p`
+ind_2=`expr index "$i" _`
+
+let ind_2=ind_2-ind_1
+let ind_1=ind_1-1
+
+    current_page=${i:$ind_1}
+    current_site=${i:$ind_1:$ind_2}
 
     echo "current site:  $current_site "
     echo "current page:  $current_page "
@@ -311,12 +326,6 @@ random_k
 random_m
 
 
-
-
-
-
-current_site="page1"
-current_page="page1_1234"
 
 # find to array
 
