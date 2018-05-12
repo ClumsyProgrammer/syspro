@@ -51,6 +51,7 @@ m=0
 rand_num_2=0
 
 rand_num_2=$RANDOM
+let rand_num=rand_num*8
 #echo "random number =  $rand_num"
 let m="rand_num %= 1000"
 #echo "$m"
@@ -84,7 +85,7 @@ do
 
 # https://www.tldp.org/LDP/abs/html/string-manipulation.html
 
-# SOS! NO p in the $root_directory
+# SOS! NO p or _ in the $root_directory
 #echo `expr index "$i" p`
 #echo `expr index "$i" _`
 
@@ -112,13 +113,13 @@ function find_to_array_external_links
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-array=()
+array_ext=()
 while IFS=  read -r -d $'\0'; do
-    array+=("$REPLY")
+    array_ext+=("$REPLY")
 done < <(find ./sites -name "*.html" ! -name "*$current_site*" -print0)
 
 
-for i in ${array[@]}
+for i in ${array_ext[@]}
 do
     echo $i
 done
@@ -133,13 +134,13 @@ function find_to_array_internal_links
 # https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
-array=()
+array_int=()
 while IFS=  read -r -d $'\0'; do
-    array+=("$REPLY")
+    array_int+=("$REPLY")
 done < <(find ./sites -name "*$current_site*.html" ! -name "*$current_page*" -print0)
 
 
-for i in ${array[@]}
+for i in ${array_int[@]}
 do
     echo $i
 done
@@ -316,20 +317,6 @@ done
 
 # place content in every page
 
-
-
-
-# for each page
-
-
-
-# random k
-random_k
-# random m
-random_m
-
-
-
 # f and q parameters
 
 
@@ -340,27 +327,64 @@ q=`expr "$w" / 2`
 q=`expr "$q" + 1`
 
 
-echo $f
-echo $q
+echo "f = $f"
+echo "q = $q"
 
 
-# find to array
-
-echo "all pages"
-
-#find_to_array_all_pages
-
-echo "internal links"
-
-#find_to_array_internal_links
-
-echo "external links"
-
-#find_to_array_external_links
+# for each page
 
 
+# https://superuser.com/questions/273187/how-to-place-the-output-of-find-in-to-an-array
+# https://stackoverflow.com/questions/23356779/how-can-i-store-find-command-result-as-arrays-in-bash
 
 
+array_all=()
+while IFS=  read -r -d $'\0'; do
+    array_all+=("$REPLY")
+done < <(find ./sites -name "*.html" -print0)
+
+
+for i in ${array_all[@]}
+do
+
+	#echo $i
+
+
+	# https://www.tldp.org/LDP/abs/html/string-manipulation.html
+
+	# SOS! NO p or _ in the $root_directory
+	#echo `expr index "$i" p`
+	#echo `expr index "$i" _`
+
+	ind_1=`expr index "$i" p`
+	ind_2=`expr index "$i" _`
+
+	let ind_2=ind_2-ind_1
+	let ind_1=ind_1-1
+
+	current_page=${i:$ind_1}
+	current_site=${i:$ind_1:$ind_2}
+
+	echo "current site:  $current_site "
+	echo "current page:  $current_page "
+
+
+	# random k
+	random_k
+	# random m
+	random_m
+
+
+	echo "internal links"
+
+	find_to_array_internal_links
+
+	echo "external links"
+
+	find_to_array_external_links
+
+
+done
 
 
 
