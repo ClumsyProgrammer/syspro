@@ -364,6 +364,7 @@ q=`expr "$w" / 2`
 q=`expr "$q" + 1`
 
 
+
 echo "f = $f"
 echo "q = $q"
 
@@ -418,6 +419,9 @@ do
 	# random m
 	random_m
 
+	sum=`expr "$f" + "$q"`
+	grammes=`expr "$m" / "$sum"`
+	echo "grammes = $grammes"
 
 	echo "internal & external links subset"
 

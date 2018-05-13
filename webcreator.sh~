@@ -139,17 +139,16 @@ done
 
 
 
-echo "---------------------------------------------"
-echo "pages_without_link"
-for i in ${pages_without_link[@]}
-do
-    echo $i
-done
+#echo "---------------------------------------------"
+#echo "pages_without_link"
+#for i in ${pages_without_link[@]}
+#do
+#    echo $i
+#done
 #echo "---------------------------------------------"
 
 
-#pages_without_link_new=(`echo ${pages_without_link[@]} ${links_array[@]} | tr ' ' '\n' | sort | uniq -D | uniq `)
-
+# https://stackoverflow.com/questions/2312762/compare-difference-of-two-arrays-in-bash
 pages_without_link_new=()
 for i in "${pages_without_link[@]}"; do
      skip=
@@ -160,11 +159,11 @@ for i in "${pages_without_link[@]}"; do
  done
 
 
-echo "pages without link new"
-for i in ${pages_without_link_new[@]}
-do
-    echo $i
-done
+#echo "pages without link new"
+#for i in ${pages_without_link_new[@]}
+#do
+#    echo $i
+#done
 #echo "---------------------------------------------"
 
 
@@ -365,6 +364,7 @@ q=`expr "$w" / 2`
 q=`expr "$q" + 1`
 
 
+
 echo "f = $f"
 echo "q = $q"
 
@@ -419,6 +419,8 @@ do
 	# random m
 	random_m
 
+	grammes=`expr "$m" / ( "$f" + "$q" )`
+	echo "grammes = $grammes"
 
 	echo "internal & external links subset"
 
