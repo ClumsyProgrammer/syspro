@@ -138,29 +138,48 @@ do
 done
 
 
-echo "pages_without_link"
+
+#echo "---------------------------------------------"
+#echo "pages_without_link"
+#for i in ${pages_without_link[@]}
+#do
+#    echo $i
+#done
+#echo "---------------------------------------------"
+
+
+# https://stackoverflow.com/questions/2312762/compare-difference-of-two-arrays-in-bash
+pages_without_link_new=()
+for i in "${pages_without_link[@]}"; do
+     skip=
+     for j in "${links_array[@]}"; do
+         [[ $i == $j ]] && { skip=1; break; }
+     done
+     [[ -n $skip ]] || pages_without_link_new+=("$i")
+ done
+
+
+#echo "pages without link new"
+#for i in ${pages_without_link_new[@]}
+#do
+#    echo $i
+#done
+#echo "---------------------------------------------"
+
+
+unset pages_without_link
+
+pages_without_link=("${pages_without_link_new[@]}")
+
+
+
+
+echo "pages without link"
 for i in ${pages_without_link[@]}
 do
     echo $i
 done
 echo "---------------------------------------------"
-
-
-pages_without_link_new=(`echo ${pages_without_link[@]} ${links_array[@]} | tr ' ' '\n' | sort | uniq -D | uniq `)
-
-
-
-
-echo "pages without link new"
-for i in ${pages_without_link_new[@]}
-do
-    echo $i
-done
-echo "---------------------------------------------"
-
-
-
-pages_without_link=("${pages_without_link_new[@]}")
 
 
 }
