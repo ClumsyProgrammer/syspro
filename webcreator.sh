@@ -435,17 +435,15 @@ do
 	file_name=$(find -name "$current_page" -print0)
 	#echo "$file_name"
 
-	echo "<!DOCTYPE html>
-<html>
-	<body>" >> "$file_name"
+	# https://stackoverflow.com/questions/8467424/echo-newline-in-bash-prints-literal-n
+	printf "<!DOCTYPE html>\n<html>\n\t<body>\n" >> "$file_name"
 
 
 
 
 	# add header tail
 
-	echo "	</body>
-</html>" >> "$file_name"
+	printf "\t</body>\n</html>\n" >> "$file_name"
 
 
 done
