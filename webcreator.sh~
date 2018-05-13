@@ -419,14 +419,33 @@ do
 	# random m
 	random_m
 
-	grammes=`expr "$m" / ( "$f" + "$q" )`
+	sum=`expr "$f" + "$q"`
+	grammes=`expr "$m" / "$sum"`
 	echo "grammes = $grammes"
 
 	echo "internal & external links subset"
 
 	links_subset
 
-	
+
+	# add header
+	# https://stackoverflow.com/questions/15583168/bash-script-file-creation-and-fill
+
+	# https://ubuntuforums.org/archive/index.php/t-624282.html
+	file_name=$(find -name "$current_page" -print0)
+	#echo "$file_name"
+
+	echo "<!DOCTYPE html>
+<html>
+	<body>" >> "$file_name"
+
+
+
+
+	# add header tail
+
+	echo "	</body>
+</html>" >> "$file_name"
 
 
 done
