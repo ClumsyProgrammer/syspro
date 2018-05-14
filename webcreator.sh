@@ -470,7 +470,7 @@ do
 
 	
 
-	echo "<a href="$l">"$l"</a>" >> "$z"
+	echo "<a href=""file:///home/katerina/Desktop/syspro/"$l">"$l"</a>" >> "$z"
 
 
 	let index_1=index_2+1
