@@ -15,6 +15,12 @@ current_page=
 array_all=()
 links_array=()
 pages_without_link=()
+$index_1=
+$index_2=
+
+
+
+
 
 # functions
 
@@ -440,6 +446,38 @@ do
 
 
 
+	# Fill content
+	# --------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+	let index_1=k
+	let index_2=k+grammes
+
+	for l in ${links_array[@]}
+	do
+
+
+	sed -n "$index_1,$index_2 p" < "$text_file" > $i
+
+
+	    echo $l
+	done
+
+
+
+
+
+
+
+
+	#---------------------------------------------------------------------------------
 
 	# add header tail
 

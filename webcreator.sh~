@@ -435,10 +435,44 @@ do
 	file_name=$(find -name "$current_page" -print0)
 	#echo "$file_name"
 
+	# https://stackoverflow.com/questions/8467424/echo-newline-in-bash-prints-literal-n
 	printf "<!DOCTYPE html>\n<html>\n\t<body>\n" >> "$file_name"
 
 
 
+	# Fill content
+	# --------------------------------------------------------------------------------
+
+
+
+
+
+
+
+	$index_1=
+	$index_2=
+
+	let index_1=k
+	let index_2=k+grammes
+
+	for l in ${links_array[@]}
+	do
+
+
+	sed -n "$index_1,$index_2 p" < "$text_file" > $i
+
+
+	    echo $l
+	done
+
+
+
+
+
+
+
+
+	#---------------------------------------------------------------------------------
 
 	# add header tail
 
