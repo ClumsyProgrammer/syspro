@@ -15,6 +15,12 @@ current_page=
 array_all=()
 links_array=()
 pages_without_link=()
+$index_1=
+$index_2=
+
+
+
+
 
 # functions
 
@@ -449,8 +455,7 @@ do
 
 
 
-	$index_1=
-	$index_2=
+
 
 	let index_1=k
 	let index_2=k+grammes
@@ -462,7 +467,16 @@ do
 	sed -n "$index_1,$index_2 p" < "$text_file" > $i
 
 
-	    echo $l
+	echo "l = $l"
+	echo "i = $i"
+
+	    printf "$l" >> "$i"
+
+
+	let index_1=index_2+1
+	let index_2=index_2+1+grammes
+
+
 	done
 
 

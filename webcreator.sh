@@ -395,26 +395,26 @@ pages_without_link=("${array_all[@]}")
 
 # for each page
 
-for i in ${array_all[@]}
+for z in ${array_all[@]}
 do
 
-	#echo $i
+	#echo $z
 
 
 	# https://www.tldp.org/LDP/abs/html/string-manipulation.html
 
 	# SOS! NO p or _ in the $root_directory
-	#echo `expr index "$i" p`
-	#echo `expr index "$i" _`
+	#echo `expr index "$z" p`
+	#echo `expr index "$z" _`
 
-	ind_1=`expr index "$i" p`
-	ind_2=`expr index "$i" _`
+	ind_1=`expr index "$z" p`
+	ind_2=`expr index "$z" _`
 
 	let ind_2=ind_2-ind_1
 	let ind_1=ind_1-1
 
-	current_page=${i:$ind_1}
-	current_site=${i:$ind_1:$ind_2}
+	current_page=${z:$ind_1}
+	current_site=${z:$ind_1:$ind_2}
 
 	echo "current site:  $current_site "
 	echo "current page:  $current_page "
@@ -464,10 +464,19 @@ do
 	do
 
 
-	sed -n "$index_1,$index_2 p" < "$text_file" > $i
+	sed -n "$index_1,$index_2 p" < "$text_file" > "$file_name"
 
 
-	    echo $l
+	echo "l = $l"
+	echo "i = $i"
+
+	    printf "$l" >> "$file_name"
+
+
+	let index_1=index_2+1
+	let index_2=index_2+1+grammes
+
+
 	done
 
 
