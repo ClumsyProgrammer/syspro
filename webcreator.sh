@@ -437,12 +437,8 @@ do
 	# add header
 	# https://stackoverflow.com/questions/15583168/bash-script-file-creation-and-fill
 
-	# https://ubuntuforums.org/archive/index.php/t-624282.html
-	file_name=$(find -name "$current_page" -print0)
-	#echo "$file_name"
-
 	# https://stackoverflow.com/questions/8467424/echo-newline-in-bash-prints-literal-n
-	printf "<!DOCTYPE html>\n<html>\n\t<body>\n" >> "$file_name"
+	printf "<!DOCTYPE html>\n<html>\n\t<body>\n" >> "$z"
 
 
 
@@ -464,13 +460,15 @@ do
 	do
 
 
-	sed -n "$index_1,$index_2 p" < "$text_file" > "$file_name"
+	sed  -n -e  ""$index_1","$index_2"p" "$text_file" >> "$z"
 
 
-	echo "l = $l"
-	echo "i = $i"
+	#sed -e -n `"$index_1","$index_2" p` < "$text_file" > "$z"
 
-	    printf "$l" >> "$file_name"
+
+	
+
+	echo "<a href="$l">"$l"</a>" >> "$z"
 
 
 	let index_1=index_2+1
@@ -490,7 +488,7 @@ do
 
 	# add header tail
 
-	printf "\t</body>\n</html>\n" >> "$file_name"
+	printf "\t</body>\n</html>\n" >> "$z"
 
 
 done
