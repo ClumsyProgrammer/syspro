@@ -459,7 +459,9 @@ do
 	for l in ${links_array[@]}
 	do
 
-
+	# https://stackoverflow.com/questions/6207573/how-to-append-output-to-the-end-of-text-file-in-shell-script-bash
+	# https://unix.stackexchange.com/questions/61726/easy-way-to-copy-lines-from-one-file-to-another
+	# https://stackoverflow.com/questions/9259658/copy-paste-part-of-a-file-into-another-file-using-terminal-or-shell
 	sed  -n -e  ""$index_1","$index_2"p" "$text_file" >> "$z"
 
 

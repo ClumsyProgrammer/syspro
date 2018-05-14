@@ -468,7 +468,7 @@ do
 
 	
 
-	echo "$l" >> "$z"
+	echo "<a href="$l">"$l"</a>" >> "$z"
 
 
 	let index_1=index_2+1
